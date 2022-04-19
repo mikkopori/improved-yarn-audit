@@ -19,7 +19,7 @@ const { createInterface } = require("readline")
 const GITHUB_ADVISORY_CODE = "GHSA"
 
 const joinPath = path.join
-const isWindows = platform === "win32"
+const is = platform === "win32"
 
 const packageInfo = require(joinPath(__dirname, "..", "package.json"))
 
@@ -285,7 +285,7 @@ async function cleanupAuditResultsFile() {
 }
 
 async function streamYarnAuditOutput(auditParams, auditResultsFileStream) {
-  const yarnBinaryPostFix = isWindows ? ".cmd" : ""
+  const yarnBinaryPostFix = isWindows ? ".cmd" : " npm "
   const yarnProcess = spawn(`yarn${yarnBinaryPostFix}`, auditParams, {
     env: env,
     stdio: ["pipe", auditResultsFileStream, auditResultsFileStream]
